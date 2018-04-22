@@ -2,12 +2,13 @@ package com.ayungan.service;
 
 import java.util.List;
 
-import com.ayungan.model.Consulta;;
+import com.ayungan.model.Consulta;
+import com.ayungan.util.ConsultaListaExamen;;
 
 
 public interface IConsultaService {
 
-	Consulta registrar(Consulta item);
+	Consulta registrar(ConsultaListaExamen item);
 
 	void modificar(Consulta item);
 

@@ -29,24 +29,30 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_consulta")
     private Integer idConsulta;
+    
     @Column(name = "fecha")
 	@JsonSerialize(using = ToStringSerializer.class) // para q tenga formato de mes año dia
 	private LocalDateTime fecha;
+    
   //consulta el compo como se llama al otro lado de la relacion
 
     @OneToMany(mappedBy = "consulta", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE }, fetch = FetchType.LAZY, orphanRemoval = true)
     //@JsonIgnoreProperties("consulta")//para q no se haga recursivo 
     private List<DetalleConsulta> detalleConsulta;
+    
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
     private Especialidad idEspecialidad;
+    
     @JoinColumn(name = "id_medico", referencedColumnName = "id_medico")
     @ManyToOne
     private Medico idMedico;
+    
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     private Paciente idPaciente;
+    
 	public Integer getIdConsulta() {
 		return idConsulta;
 	}

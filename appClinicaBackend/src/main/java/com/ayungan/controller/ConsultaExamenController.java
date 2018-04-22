@@ -16,55 +16,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ayungan.model.Consulta;
-import com.ayungan.service.IConsultaService;
-import com.ayungan.util.ConsultaListaExamen;
+import com.ayungan.model.ConsultaExamen;
+import com.ayungan.service.IConsultaExamenService;
 
 @RestController
-@RequestMapping("/consulta")
-public class ConsultaController {
+@RequestMapping("/consultaExamen")
+public class ConsultaExamenController {
 	@Autowired
-	private IConsultaService service;
+	private IConsultaExamenService service;
 	
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Consulta>> listar(){
-		List<Consulta> item = new ArrayList<>();
+	public ResponseEntity<List<ConsultaExamen>> listar(){
+		List<ConsultaExamen> item = new ArrayList<>();
 		try {
 			item = service.listar();
 		}catch(Exception e) {
-			return new ResponseEntity<List<Consulta>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<List<Consulta>>(item, HttpStatus.OK);
+		return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Consulta> listarId(@PathVariable("id") Integer id){
-		Consulta item = new Consulta();
+	public ResponseEntity<ConsultaExamen> listarId(@PathVariable("id") Integer id){
+		ConsultaExamen item = new ConsultaExamen();
 		try {
 			item = service.listarId(id);
 		}catch(Exception e) {
-			return new ResponseEntity<Consulta>(item, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<ConsultaExamen>(item, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Consulta>(item, HttpStatus.OK);
+		return new ResponseEntity<ConsultaExamen>(item, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Consulta> registrar(@RequestBody ConsultaListaExamen Consulta) {
-		Consulta item = new Consulta();
+	public ResponseEntity<Integer> registrar(@RequestBody ConsultaExamen ConsultaExamen) {
+	
+		int resultado = 0;
 		try {
-			item = service.registrar(Consulta);			
+			resultado = service.registrar(ConsultaExamen);	
+			
 		} catch (Exception e) {
 			System.out.println("error->"+e.getMessage());
-			return new ResponseEntity<Consulta>(item, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Integer>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Consulta>(item, HttpStatus.OK);
+		return new ResponseEntity<Integer>(resultado, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> actualizar(@RequestBody Consulta Consulta) {
+	public ResponseEntity<Integer> actualizar(@RequestBody ConsultaExamen ConsultaExamen) {
 		int resultado = 0;
 		try {
-			service.modificar(Consulta);
+			service.modificar(ConsultaExamen);
 			resultado = 1;
 		} catch (Exception e) {
 			resultado = 0;
