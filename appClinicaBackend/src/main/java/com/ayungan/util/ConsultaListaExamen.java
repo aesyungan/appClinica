@@ -2,9 +2,11 @@ package com.ayungan.util;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.ayungan.model.Consulta;
 import com.ayungan.model.Examen;
-
+@Component
 public class ConsultaListaExamen {
 
 	private Consulta consulta;
