@@ -2,10 +2,13 @@ import { Paciente } from './../_model/paciente';
 import { Injectable, Host } from '@angular/core';
 import { HOST } from '../_shared/var.constant';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class PacienteService {
   url: string = `${HOST}/paciente`;
+  pacienteCambio = new Subject<Paciente[]>();//programacion reactiva
+  mensaje=new Subject<string>();
   constructor(private _http: HttpClient) {
 
     /*

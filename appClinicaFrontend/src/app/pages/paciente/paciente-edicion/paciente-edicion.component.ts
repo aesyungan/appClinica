@@ -78,12 +78,12 @@ export class PacienteEdicionComponent implements OnInit {
       this.pacienteService.modificar(this.paciente).subscribe(data => {
         console.log(data);
         if (data === 1) {
-          this.pacienteService.getListarPacietnesPage(0, 100).subscribe(pacientes => {
-            // this.pacienteService.pacienteCambio.next(pacientes);
-            // this.pacienteService.mensaje.next('Se modificó');
+          this.pacienteService.getListarPacietnesPage(0, 5).subscribe(pacientes => {
+            this.pacienteService.pacienteCambio.next(pacientes);//ahorita va a realizar algo
+            this.pacienteService.mensaje.next('Se modificó');
           });
         } else {
-          // this.pacienteService.mensaje.next('No se modificó');
+          this.pacienteService.mensaje.next('No se modificó');
         }
       });
     } else {
@@ -91,12 +91,12 @@ export class PacienteEdicionComponent implements OnInit {
       this.pacienteService.registrar(this.paciente).subscribe(data => {
         console.log(data);
         if (data === 1) {
-          this.pacienteService.getListarPacietnesPage(0, 100).subscribe(pacientes => {
-            //   this.pacienteService.pacienteCambio.next(pacientes);
-            // this.pacienteService.mensaje.next('Se registró');
+          this.pacienteService.getListarPacietnesPage(0, 5).subscribe(pacientes => {
+            this.pacienteService.pacienteCambio.next(pacientes);
+            this.pacienteService.mensaje.next('Se registró');
           });
         } else {
-          //   this.pacienteService.mensaje.next('No se registró');
+          this.pacienteService.mensaje.next('No se registró');
         }
       });
     }

@@ -45,7 +45,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> accion </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-raised-button color="primary" [routerLink]="['editar',row.idPaciente]" routerLinkActive="router-link-active" >Actualizar</button>
-        <button mat-raised-button color="accent">Eliminar</button>
+        <button mat-raised-button color="accent" (click)="eliminar(row)"> Eliminar</button>
       </mat-cell>
     </ng-container>
 
