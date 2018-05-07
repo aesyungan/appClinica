@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,7 +23,9 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [PacienteService],
   bootstrap: [AppComponent]

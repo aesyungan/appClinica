@@ -9,6 +9,7 @@ const routes: Routes = [
     path: 'paciente', component: PacienteComponent, children:
       [
         { path: 'nuevo', component: PacienteEdicionComponent },
+        { path: 'editar/:id', component: PacienteEdicionComponent },
       ]
   },
 ];

@@ -23,5 +23,22 @@ export class PacienteService {
   public getListarPacietnes() {
     return this._http.get<Paciente[]>(`${this.url}/listar`);
   }
+  public getPacientePorId(id: number) {
+    return this._http.get<Paciente>(`${this.url}/listar/${id}`);
+  }
+  public getListarPacietnesPage(numPage: number, size: number) {
+    return this._http.get<Paciente[]>(`${this.url}/listarPage?page=${numPage}&size=${size}&sort=idPaciente`);
+    //&sort=idPaciente ordena decendentemente
+  }
+  registrar(paciente: Paciente) {
+    return this._http.post(`${this.url}/registrar`, paciente);
+  }
 
+  modificar(paciente: Paciente) {
+    return this._http.put(`${this.url}/actualizar`, paciente);
+  }
+
+  eliminar(paciente: Paciente) {
+    return this._http.delete(`${this.url}/eliminar/${paciente.idPaciente}`);
+  }
 }
