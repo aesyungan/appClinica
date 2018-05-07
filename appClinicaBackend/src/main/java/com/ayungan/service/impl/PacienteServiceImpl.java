@@ -1,7 +1,10 @@
 package com.ayungan.service.impl;
 
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.ayungan.dao.IPacienteDAO;
@@ -41,5 +44,12 @@ public class PacienteServiceImpl implements IPacienteService {
 		// TODO Auto-generated method stub
 		return dao.findAll();
 	}
+
+	@Override
+	public Page<Paciente> listarAllByPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return dao.findAll(pageable);
+	}
+
 
 }

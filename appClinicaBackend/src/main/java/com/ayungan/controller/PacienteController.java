@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +32,23 @@ public class PacienteController {
 		List<Paciente> item = new ArrayList<>();
 		try {
 			item = service.listar();
+			//end añade 100 datos
 		} catch (Exception e) {
 			return new ResponseEntity<List<Paciente>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<List<Paciente>>(item, HttpStatus.OK);
+	}
+	@GetMapping(value = "/listarPage", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Paciente>> listarPage(Pageable pageable) {
+		System.out.println("pagination details->");
+		System.out.println(pageable);
+		Page<Paciente> item = null;
+		try {
+			item = service.listarAllByPage(pageable);
+		} catch (Exception e) {
+			return new ResponseEntity<Page<Paciente>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Page<Paciente>>(item, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

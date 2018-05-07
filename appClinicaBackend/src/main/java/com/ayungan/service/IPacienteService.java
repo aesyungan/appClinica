@@ -2,6 +2,10 @@ package com.ayungan.service;
 
 import java.util.List;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.ayungan.model.Paciente;
 
 public interface IPacienteService {
@@ -15,5 +19,6 @@ public interface IPacienteService {
 	Paciente listarId(int idPaciente);
 
 	List<Paciente> listar();
+	Page<Paciente> listarAllByPage(Pageable pageable);
 
 }
