@@ -46,9 +46,10 @@ public class UsuarioServiceImpl implements IUsuarioService,UserDetailsService {
 		return dao.findAll();
 	}
 //aqui es donde encuentra usuario por id 
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+		System.out.println(username);
 		return dao.findOneByUsername(username);
 	}
 

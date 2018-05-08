@@ -1,3 +1,4 @@
+import { LoginService } from './_services/login.service';
 import { PacienteEdicionComponent } from './pages/paciente/paciente-edicion/paciente-edicion.component';
 import { PacienteService } from './_services/paciente.service';
 import { MaterialModule } from './material/material.module';
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -17,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     PacienteComponent,
-    PacienteEdicionComponent
+    PacienteEdicionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [PacienteService],
+  providers: [PacienteService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

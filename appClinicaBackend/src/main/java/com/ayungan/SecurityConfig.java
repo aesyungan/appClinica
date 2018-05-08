@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -82,6 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		defaultTokenServices.setSupportRefreshToken(true);	
 		defaultTokenServices.setReuseRefreshToken(false);	
 		return defaultTokenServices;
+	}
+	@Bean
+	public static NoOpPasswordEncoder passwordEncoder() {
+	 return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
 	
 }

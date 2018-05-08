@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.ayungan.model.Consulta;
+
 import com.ayungan.model.ConsultaExamen;
 
 @Repository
