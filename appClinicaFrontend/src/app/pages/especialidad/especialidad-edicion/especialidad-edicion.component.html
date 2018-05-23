@@ -1,0 +1,17 @@
+<form class="example-form" [formGroup]="form" (ngSubmit)="operar()">
+
+  <div [hidden]="true">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="ID" required formControlName="id">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Nombre Especialidad" required formControlName="nombre">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Aceptar</button>
+  <button mat-raised-button color="accent" routerLink='/especialidad'>Cancelar</button>
+</form>
+
+<br/>

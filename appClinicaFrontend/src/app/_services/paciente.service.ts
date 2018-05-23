@@ -24,7 +24,13 @@ export class PacienteService {
     */
   }
   public getListarPacietnes() {
-    return this._http.get<Paciente[]>(`${this.url}/listar`);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
+    return this._http.get<Paciente[]>(`${this.url}/listar`,
+    {//7envia token en el header
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    }
+  );
+
   }
   public getPacientePorId(id: number) {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
