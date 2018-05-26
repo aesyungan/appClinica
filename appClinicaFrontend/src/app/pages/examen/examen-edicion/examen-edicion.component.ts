@@ -68,7 +68,8 @@ export class ExamenEdicionComponent implements OnInit {
       });
     } else {
       this.examenService.registrarExamen(this.examen).subscribe(data => {
-        if (data === 1) {
+        console.log(data);
+        if (data != null) {
           this.examenService.getlistarExamen().subscribe(especialidad => {
             this.examenService.examenCambio.next(especialidad);
             this.examenService.mensaje.next("Se registro");

@@ -43,7 +43,7 @@ export class DialogoComponent implements OnInit {
       });
     }else{
       this.medicoService.registrar(this.medico).subscribe(data => {
-        if (data === 1) {
+        if (data !=null ) {
           this.medicoService.getlistarMedicos().subscribe(medicos => {
             this.medicoService.medicosCambio.next(medicos);
             this.medicoService.mensaje.next("Se registro");

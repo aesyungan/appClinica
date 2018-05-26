@@ -1,6 +1,6 @@
 export class Medico {
-    idMedico: number = 1;
-    nombres: string = "Carlos";
-    apellidos: string = "Perez";
-    cmp: string = "0604950725";
+    idMedico: number = 0;
+    nombres: string;
+    apellidos: string;
+    cmp: string
 }
