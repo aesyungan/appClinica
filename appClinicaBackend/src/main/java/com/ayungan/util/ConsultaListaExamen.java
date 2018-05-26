@@ -10,7 +10,7 @@ import com.ayungan.model.Examen;
 public class ConsultaListaExamen {
 
 	private Consulta consulta;
-	private List<Examen> examens;
+	private List<Examen> lstExamen;
 
 	public Consulta getConsulta() {
 		return consulta;
@@ -21,11 +21,11 @@ public class ConsultaListaExamen {
 	}
 
 	public List<Examen> getExamens() {
-		return examens;
+		return lstExamen;
 	}
 
 	public void setExamens(List<Examen> examens) {
-		this.examens = examens;
+		this.lstExamen = examens;
 	}
 
 }

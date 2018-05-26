@@ -24,43 +24,47 @@ import com.ayungan.service.IConsultaExamenService;
 public class ConsultaExamenController {
 	@Autowired
 	private IConsultaExamenService service;
-	
+
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ConsultaExamen>> listar(){
+	public ResponseEntity<List<ConsultaExamen>> listar() {
 		List<ConsultaExamen> item = new ArrayList<>();
 		try {
 			item = service.listar();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ConsultaExamen> listarId(@PathVariable("id") Integer id){
-		ConsultaExamen item = new ConsultaExamen();
+	public ResponseEntity<List<ConsultaExamen>> listarId(@PathVariable("id") Integer id) {
+		List<ConsultaExamen> item = new ArrayList<>();
+		System.out.println("Listando consulta examen");
 		try {
-			item = service.listarId(id);
-		}catch(Exception e) {
-			return new ResponseEntity<ConsultaExamen>(item, HttpStatus.INTERNAL_SERVER_ERROR);
+			item = service.listarExamenesPorConsulta(id);
+			System.out.println(item.toString());
+		} catch (Exception e) {
+			System.out.println("Error");
+			System.out.println(e.getMessage());
+			return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<ConsultaExamen>(item, HttpStatus.OK);
+		return new ResponseEntity<List<ConsultaExamen>>(item, HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> registrar(@RequestBody ConsultaExamen ConsultaExamen) {
-	
+
 		int resultado = 0;
 		try {
-			resultado = service.registrar(ConsultaExamen);	
-			
+			resultado = service.registrar(ConsultaExamen);
+
 		} catch (Exception e) {
-			System.out.println("error->"+e.getMessage());
+			System.out.println("error->" + e.getMessage());
 			return new ResponseEntity<Integer>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Integer>(resultado, HttpStatus.OK);
 	}
-	
+
 	@PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> actualizar(@RequestBody ConsultaExamen ConsultaExamen) {
 		int resultado = 0;
@@ -73,7 +77,7 @@ public class ConsultaExamenController {
 
 		return new ResponseEntity<Integer>(resultado, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping(value = "/eliminar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> eliminar(@PathVariable Integer id) {
 		int resultado = 0;

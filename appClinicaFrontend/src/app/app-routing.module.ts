@@ -14,6 +14,7 @@ import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { EspecialComponent } from './pages/consulta/especial/especial.component';
 import { BuscarComponent } from './pages/consulta/buscar/buscar.component';
 import { MedicoComponent } from './pages/medico/medico.component';
+import { ReporteComponent } from './pages/reporte/reporte.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,7 @@ const routes: Routes = [
       ], canActivate: [GuardService]
   },
   //{ path: 'perfil', component: PerfilComponent, canActivate: [GuardService] },
-  //{ path: 'reporte', component: ReporteComponent, canActivate: [GuardService] },
+  { path: 'reporte', component: ReporteComponent, canActivate: [GuardService] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

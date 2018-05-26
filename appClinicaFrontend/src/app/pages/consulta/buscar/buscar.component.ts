@@ -53,6 +53,7 @@ export class BuscarComponent implements OnInit {
       delete filtro.nombreCompleto;
 
       this.consultaService.buscar(filtro).subscribe(data => {
+        console.log(data);
         this.dataSource.data = data;
       });
     } else {
@@ -63,8 +64,10 @@ export class BuscarComponent implements OnInit {
       if (filtro.nombreCompleto.length == 0) {
         delete filtro.nombreCompleto
       }
+      console.log(filtro);
 
       this.consultaService.buscar(filtro).subscribe(data => {
+        console.log(data);
         this.dataSource.data = data;
 
         //this.dataSource.paginator = this.paginator;

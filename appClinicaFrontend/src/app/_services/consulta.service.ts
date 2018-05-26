@@ -4,6 +4,7 @@ import { Consulta } from './../_model/consulta';
 import { HOST, TOKEN_NAME } from './../_shared/var.constant';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConsultaResumen } from '../_model/consultaResumen';
 
 @Injectable()
 export class ConsultaService {
@@ -27,13 +28,13 @@ export class ConsultaService {
     });
   }
 
-  /*listarResumen() {
+  listarResumen() {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
     return this.http.get<ConsultaResumen[]>(`${this.url}/listarResumen`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
-  }*/
-
+  }
+//de tipo blob por qye es de tipo byte
   generarReporte() {    
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
     return this.http.get(`${this.url}/generarReporte`, {

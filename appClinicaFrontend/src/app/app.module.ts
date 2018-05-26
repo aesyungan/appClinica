@@ -29,7 +29,9 @@ import { DialogoDetalleComponent } from './pages/consulta/buscar/dialogo-detalle
 import { Not403Component } from './pages/not403/not403.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { GuardService } from './_services/guard.service';
+import { ReporteComponent } from './pages/reporte/reporte.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { GuardService } from './_services/guard.service';
     BuscarComponent,
     DialogoDetalleComponent,
     EspecialComponent,
-    Not403Component
+    Not403Component,
+    ReporteComponent
   ],
   entryComponents: [DialogoComponent, DialogoDetalleComponent],//mostrar dialogo
   imports: [
@@ -57,7 +60,8 @@ import { GuardService } from './_services/guard.service';
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule, 
   ],
   providers: [PacienteService, LoginService, MedicoService, ExamenService, EspecialidadService, ConsultaService, GuardService,
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },],

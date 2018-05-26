@@ -1,6 +1,7 @@
 .example-container{
     display: flex;
     flex-direction: column;
+    padding:0 25%;
 }
 .example-container>*{
     width: 100%;

@@ -45,4 +45,10 @@ public class ConsultaExamenServiceImpl implements IConsultaExamenService {
 		return dao.findAll();
 	}
 
+	@Override
+	public List<ConsultaExamen> listarExamenesPorConsulta(int idItem) {
+		// TODO Auto-generated method stub
+		return dao.listarExamenesPorConsulta(idItem);
+	}
+
 }

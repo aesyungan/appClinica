@@ -9,6 +9,10 @@ import javax.persistence.ManyToOne;
 //representaciond de pk 
 @Embeddable
 public class ConsultaExamenPK implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name="id_examen",nullable=false )
 	private Examen examen;

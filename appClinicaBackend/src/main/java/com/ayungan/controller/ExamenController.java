@@ -49,7 +49,7 @@ public class ExamenController {
 	
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Examen> registrar(@RequestBody Examen Examen) {
-		Examen item = new Examen();
+		Examen item = null;
 		try {
 			item = service.registrar(Examen);			
 		} catch (Exception e) {

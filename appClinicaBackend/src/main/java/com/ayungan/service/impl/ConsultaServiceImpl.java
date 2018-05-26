@@ -1,18 +1,28 @@
 package com.ayungan.service.impl;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 
 import com.ayungan.dao.IConsultaDAO;
 import com.ayungan.dao.IConsultaExamenDAO;
-import com.ayungan.dao.IExamenDAO;
 import com.ayungan.model.Consulta;
 import com.ayungan.service.IConsultaService;
-import com.ayungan.util.ConsultaListaExamen;;
+import com.ayungan.util.ConsultaListaExamen;
+import com.ayungan.util.ConsultaResumen;
+import com.ayungan.util.FiltroConsulta;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 public class ConsultaServiceImpl implements IConsultaService {
@@ -68,6 +78,39 @@ public class ConsultaServiceImpl implements IConsultaService {
 	public List<Consulta> listar() {
 		// TODO Auto-generated method stub
 		return dao.findAll();
+	}
+	@Override
+	public List<Consulta> buscar(FiltroConsulta filtro) {
+		return  dao.buscar(filtro.getDni(), filtro.getNombreCompleto());
+	}
+
+	@Override
+	public List<Consulta> buscarfecha(FiltroConsulta filtro) {
+		LocalDateTime fechaSgte = filtro.getFechaConsulta().plusDays(1);
+		System.out.println(fechaSgte.toString());
+		return dao.buscarPorFecha(filtro.getFechaConsulta(), fechaSgte);
+	}
+
+	@Override
+	public List<ConsultaResumen> listarResumen() {
+		// TODO Auto-generated method stub
+		List<ConsultaResumen> consulta = new ArrayList<>();
+		dao.listarResumen(1).forEach( x -> {
+			ConsultaResumen cr = new ConsultaResumen();
+			cr.setCantidad(Integer.parseInt(String.valueOf(x[0])));
+			cr.setFecha(String.valueOf(x[1]));
+			consulta.add(cr);
+		});
+		return consulta;
+	
+	}
+
+	@Override
+	public byte[] generarReporte() throws Exception {
+		File file = new ClassPathResource("/reports/consultas.jasper").getFile();
+
+		JasperPrint print = JasperFillManager.fillReport(file.getPath(), null, new JRBeanCollectionDataSource(this.listarResumen()));
+		return JasperExportManager.exportReportToPdf(print);	
 	}
 
 }

@@ -3,7 +3,9 @@ package com.ayungan.service;
 import java.util.List;
 
 import com.ayungan.model.Consulta;
-import com.ayungan.util.ConsultaListaExamen;;
+import com.ayungan.util.ConsultaListaExamen;
+import com.ayungan.util.ConsultaResumen;
+import com.ayungan.util.FiltroConsulta;;
 
 
 public interface IConsultaService {
@@ -17,5 +19,10 @@ public interface IConsultaService {
 	Consulta listarId(int idItem);
 
 	List<Consulta> listar();
+	List<Consulta> buscar(FiltroConsulta filtro);
+
+	List<Consulta> buscarfecha(FiltroConsulta filtro);
+	List<ConsultaResumen> listarResumen();
+	byte[] generarReporte() throws Exception ;
 
 }

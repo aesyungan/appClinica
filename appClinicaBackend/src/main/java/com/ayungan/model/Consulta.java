@@ -42,88 +42,90 @@ public class Consulta {
     
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
-    private Especialidad idEspecialidad;
+    private Especialidad especialidad;
     
     @JoinColumn(name = "id_medico", referencedColumnName = "id_medico")
     @ManyToOne
-    private Medico idMedico;
+    private Medico medico;
     
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
-    private Paciente idPaciente;
-    
+    private Paciente paciente;
+
 	public Integer getIdConsulta() {
 		return idConsulta;
 	}
+
 	public void setIdConsulta(Integer idConsulta) {
 		this.idConsulta = idConsulta;
 	}
+
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
+
 	public List<DetalleConsulta> getDetalleConsulta() {
 		return detalleConsulta;
 	}
+
 	public void setDetalleConsulta(List<DetalleConsulta> detalleConsulta) {
 		this.detalleConsulta = detalleConsulta;
 	}
-	public Especialidad getIdEspecialidad() {
-		return idEspecialidad;
+
+	public Especialidad getEspecialidad() {
+		return especialidad;
 	}
-	public void setIdEspecialidad(Especialidad idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
+
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
 	}
-	public Medico getIdMedico() {
-		return idMedico;
+
+	public Medico getMedico() {
+		return medico;
 	}
-	public void setIdMedico(Medico idMedico) {
-		this.idMedico = idMedico;
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
-	public Paciente getIdPaciente() {
-		return idPaciente;
+
+	public Paciente getPaciente() {
+		return paciente;
 	}
-	public void setIdPaciente(Paciente idPaciente) {
-		this.idPaciente = idPaciente;
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	public Consulta(Integer idConsulta, LocalDateTime fecha, List<DetalleConsulta> detalleConsulta,
-			Especialidad idEspecialidad, Medico idMedico, Paciente idPaciente) {
+			Especialidad especialidad, Medico medico, Paciente paciente) {
 		super();
 		this.idConsulta = idConsulta;
 		this.fecha = fecha;
 		this.detalleConsulta = detalleConsulta;
-		this.idEspecialidad = idEspecialidad;
-		this.idMedico = idMedico;
-		this.idPaciente = idPaciente;
+		this.especialidad = especialidad;
+		this.medico = medico;
+		this.paciente = paciente;
 	}
+
 	public Consulta() {
 		super();
 	}
-	
-	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idConsulta != null ? idConsulta.hashCode() : 0);
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Consulta)) {
-            return false;
-        }
-        Consulta other = (Consulta) object;
-        if ((this.idConsulta == null && other.idConsulta != null) || (this.idConsulta != null && !this.idConsulta.equals(other.idConsulta))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public String toString() {
+		return "Consulta [idConsulta=" + idConsulta + ", fecha=" + fecha + ", detalleConsulta=" + detalleConsulta
+				+ ", especialidad=" + especialidad + ", medico=" + medico + ", paciente=" + paciente + "]";
+	}
+    
+    
     
 	
 	

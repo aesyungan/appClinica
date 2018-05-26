@@ -23,7 +23,8 @@ export class ExamenService {
 
   getlistarExamenPorConsulta(idConsulta: number) {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.get<ConsultaListaExamen[]>(`${this.url}/consultaexamen/listar/${idConsulta}`, {
+    console.log(`${this.url}/consultaExamen/listar/${idConsulta}`);
+    return this.http.get<ConsultaListaExamen[]>(`${this.url}/consultaExamen/listar/${idConsulta}`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }

@@ -14,6 +14,7 @@ public interface IConsultaExamenService {
 	void eliminar(int idItem);
 
 	ConsultaExamen listarId(int idItem);
+	List<ConsultaExamen> listarExamenesPorConsulta(int idItem);
 
 	List<ConsultaExamen> listar();
 

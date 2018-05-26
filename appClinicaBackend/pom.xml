@@ -96,7 +96,13 @@
 			<version>1.9.13</version>
 		</dependency>
 		<!-- end spring security -->
-
+		<!-- jasperreport -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.5.1</version>
+		</dependency>
+		<!-- end jasperreport -->
 	</dependencies>
 
 	<build>
