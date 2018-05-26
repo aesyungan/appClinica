@@ -18,6 +18,7 @@ export class MedicoComponent implements OnInit {
   displayedColumns = ['idmedico', 'nombres', 'apellidos', 'cmp', 'acciones'];
   dataSource: MatTableDataSource<Medico>;
   mensaje: string;
+  medico: Medico;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -62,7 +63,6 @@ export class MedicoComponent implements OnInit {
   openDialog(medico: Medico): void {
 
     let med = medico != null ? medico : new Medico();
-    console.log(med);
     let dialogRef = this.dialog.open(DialogoComponent, {
       width: '250px',   
       disableClose: true,   

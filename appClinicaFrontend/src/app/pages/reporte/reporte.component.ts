@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultaService } from '../../_services/consulta.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
@@ -18,20 +19,20 @@ export class ReporteComponent implements OnInit {
   imagenData: any;
   imagenEstado: boolean = false;
 
-  constructor(private consultaService: ConsultaService, private sanitization: DomSanitizer) { }
+  constructor( public snackBar: MatSnackBar,private consultaService: ConsultaService, private sanitization: DomSanitizer) { }
 
   ngOnInit() {
     this.tipo = "line";
     this.dibujar();
-
-    this.consultaService.leerArchivo().subscribe(data => {
-      this.imagenData = data;
+//LEE UNAIMAGEN CON ID 1 QUE ES UNA IMAGEN
+    this.consultaService.leerArchivo(3).subscribe(data => {
+      console.info(data);
       let x = this.convertir(data);
-
     });
   }
-
+//convertit imagen
   convertir(data: any) {
+    //transforma la data en una lectura de java script
     var reader = new FileReader();
     reader.readAsDataURL(data);    
     reader.onloadend = () => {
@@ -45,7 +46,7 @@ export class ReporteComponent implements OnInit {
     this.imagenData = this.sanitization.bypassSecurityTrustResourceUrl(x);
     this.imagenEstado = true;
   }
-
+//end convertir imagen
   cambiar(tipo: string) {
     this.tipo = tipo;
     if (this.chart) {
@@ -137,14 +138,7 @@ export class ReporteComponent implements OnInit {
       }
       reader.readAsArrayBuffer(data);
     });
-    /*
-    this.consultaService.leerArchivo().subscribe(data => {
-      let reader = new FileReader();
-      reader.onload = (e:any)=>{
-        this.pdfSrc = e.target.result;
-      }
-      reader.readAsArrayBuffer(data);
-    });*/
+   
   }
 
   descargarReporte(){
@@ -169,9 +163,21 @@ export class ReporteComponent implements OnInit {
     this.currentFileUpload = this.selectedFiles.item(0)
     this.consultaService.guardarArchivo(this.currentFileUpload).subscribe(data => {
       console.log(data);
-    })
+      let snackBarRef = this.snackBar.open("Correcto Upload", null, { duration: 2000 });
+    });
 
     this.selectedFiles = undefined;
+  }
+
+  optenerArchivoPDF(){
+     
+    this.consultaService.leerArchivo(1).subscribe(data => {
+      let reader = new FileReader();
+      reader.onload = (e:any)=>{
+        this.pdfSrc = e.target.result;
+      }
+      reader.readAsArrayBuffer(data);
+    });
   }
 }
 

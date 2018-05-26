@@ -7,7 +7,7 @@
 	<groupId>com.ayungan</groupId>
 	<artifactId>appClinicaBackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>appClinicaBackend</name>
 	<description>Demo project for Spring Boot</description>
@@ -23,6 +23,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<!-- clase de inicio para war -->
+		<start-class>com.ayungan.AppClinicaBackendApplication</start-class>
+		<!-- end clase de inicio para war -->
 	</properties>
 
 	<dependencies>
@@ -103,6 +106,13 @@
 			<version>6.5.1</version>
 		</dependency>
 		<!-- end jasperreport -->
+		<!-- INI Para despliegue -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- FIN Para despliegue -->
 	</dependencies>
 
 	<build>

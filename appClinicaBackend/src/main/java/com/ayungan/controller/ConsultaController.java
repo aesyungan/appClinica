@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ayungan.model.Archivo;
 import com.ayungan.model.Consulta;
+import com.ayungan.service.IArchivoService;
 import com.ayungan.service.IConsultaService;
 import com.ayungan.util.ConsultaListaExamen;
 import com.ayungan.util.ConsultaResumen;
@@ -30,6 +32,8 @@ import com.ayungan.util.FiltroConsulta;
 public class ConsultaController {
 	@Autowired
 	private IConsultaService service;
+	@Autowired
+	private IArchivoService serviceArchivo;
 
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Consulta>> listar() {
@@ -137,9 +141,9 @@ public class ConsultaController {
 	public ResponseEntity<Integer> guardarArchivo(@RequestParam("file") MultipartFile file) throws IOException {
 
 		int rpta = 0;
-		// Archivo ar = new Archivo();
-		// ar.setValue(file.getBytes());
-		// rpta = serviceArchivo.guardar(ar);
+		Archivo ar = new Archivo();
+		ar.setValue(file.getBytes());
+		 rpta = serviceArchivo.guardar(ar);
 
 		return new ResponseEntity<Integer>(rpta, HttpStatus.OK);
 	}
@@ -148,7 +152,7 @@ public class ConsultaController {
 	public ResponseEntity<byte[]> leerArchivo(@PathVariable("idArchivo") Integer idArchivo) throws IOException {
 
 		byte[] arr = null;
-		// arr=serviceArchivo.leerArchivo(idArchivo);
+		arr=serviceArchivo.leerArchivo(idArchivo);
 
 		return new ResponseEntity<byte[]>(arr, HttpStatus.OK);
 	}
