@@ -1,5 +1,8 @@
-export const HOST = 'http://ayungan.com:8080/appClinicaBackend';
-//export const HOST = 'http://localhost:8080';
+//export const HOST = 'http://ayungan.com:8080/appClinicaBackend';
+export const HOST = 'http://localhost:8080';
+export const MICRO_CRUD = 'micro-crud';
+export const MICRO_CR = 'micro-cr';
+export const MICRO_AUTH = 'uaa';
 //export const HOST = 'http://localhost:8080';
 //export const HOST = 'http://localhost:8080';
 //token

@@ -1,73 +1,82 @@
 import { Paciente } from './../_model/paciente';
 import { Injectable, Host } from '@angular/core';
-import { HOST, TOKEN_NAME } from '../_shared/var.constant';
+import { HOST, TOKEN_NAME, MICRO_CRUD } from '../_shared/var.constant';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class PacienteService {
+ 
+
   url: string = `${HOST}/paciente`;
-  pacienteCambio = new Subject<Paciente[]>();//programacion reactiva
+  pacienteCambio = new Subject<Paciente[]>();
   mensaje = new Subject<string>();
-  constructor(private _http: HttpClient) {
+  //pacientes: Paciente[] = [];
 
-    /*
-    let p = new Paciente();
+  constructor(private http: HttpClient) {
+    /*let p = new Paciente();
     p.idPaciente = 1;
-    p.nombres = "alex";
-    p.apellidos = "yungan";
-    p.dni = "0604950725";
-    p.direccion = "Roma -viena";
-    p.telefono = "0322121";
-    p.email = "carlos@hotmail.es";
+    p.nombres = "Mito";
+    p.apellidos = "Code";
     this.pacientes.push(p);
-    */
-  }
-  public getListarPacietnes() {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.get<Paciente[]>(`${this.url}/listar`,
-    {//7envia token en el header
-      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-    }
-  );
 
+    p = new Paciente();
+    p.idPaciente = 2;
+    p.nombres = "Jaime";
+    p.apellidos = "Medina";
+    this.pacientes.push(p);*/
   }
-  public getPacientePorId(id: number) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.get<Paciente>(`${this.url}/listar/${id}`,
-      {//7envia token en el header
-        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-      }
-    );
+
+  getlistar() {        
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Paciente[]>(`${this.url}/listar`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });    
   }
-  public getListarPacietnesPage(numPage: number, size: number) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.get<Paciente[]>(`${this.url}/listarPage?page=${numPage}&size=${size}&sort=idPaciente`, { headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json') });
-    //&sort=idPaciente ordena decendentemente
+  getListarPacietnes() {        
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Paciente[]>(`${this.url}/listar`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });    
   }
+
+  getListarPacietnesPage(p: number, s: number) {
+    //return this.pacientes;
+    //Observable
+    //return this.http.get<Paciente[]>(`${this.url}/listar`);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Paciente[]>(`${this.url}/listarPageable?page=${p}&size=${s}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+    //http://localhost:8080/paciente/listarPageable?page=1&size=10
+  }
+
+  getPacientePorId(id: number) {
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Paciente>(`${this.url}/listar/${id}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+
   registrar(paciente: Paciente) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.post(`${this.url}/registrar`, paciente,
-      {
-        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-      }
-    );
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(`${this.url}/registrar`, paciente, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificar(paciente: Paciente) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.put(`${this.url}/actualizar`, paciente,
-      {
-        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-      }
-    );
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(`${this.url}/actualizar`, paciente, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   eliminar(paciente: Paciente) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;//recupera solo el access token
-    return this._http.delete(`${this.url}/eliminar/${paciente.idPaciente}`,
-      {
-        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-      });
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.delete(`${this.url}/eliminar/${paciente.idPaciente}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 }

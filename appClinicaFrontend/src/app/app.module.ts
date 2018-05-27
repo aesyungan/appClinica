@@ -32,6 +32,8 @@ import { GuardService } from './_services/guard.service';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { RecuperarComponent } from './login/recuperar/recuperar.component';
+import { TokenComponent } from './login/recuperar/token/token.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DialogoDetalleComponent,
     EspecialComponent,
     Not403Component,
-    ReporteComponent
+    ReporteComponent,
+    RecuperarComponent,
+    TokenComponent
   ],
   entryComponents: [DialogoComponent, DialogoDetalleComponent],//mostrar dialogo
   imports: [

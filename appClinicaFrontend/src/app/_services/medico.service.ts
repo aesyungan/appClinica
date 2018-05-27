@@ -1,5 +1,5 @@
 import { Medico } from './../_model/medico';
-import { HOST, TOKEN_NAME } from './../_shared/var.constant';
+import { HOST, TOKEN_NAME, MICRO_CRUD } from './../_shared/var.constant';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';

@@ -25,7 +25,7 @@ export class ReporteComponent implements OnInit {
     this.tipo = "line";
     this.dibujar();
 //LEE UNAIMAGEN CON ID 1 QUE ES UNA IMAGEN
-    this.consultaService.leerArchivo(3).subscribe(data => {
+    this.consultaService.leerArchivo().subscribe(data => {
       console.info(data);
       let x = this.convertir(data);
     });
@@ -171,7 +171,7 @@ export class ReporteComponent implements OnInit {
 
   optenerArchivoPDF(){
      
-    this.consultaService.leerArchivo(1).subscribe(data => {
+    this.consultaService.leerArchivo().subscribe(data => {
       let reader = new FileReader();
       reader.onload = (e:any)=>{
         this.pdfSrc = e.target.result;

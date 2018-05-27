@@ -1,5 +1,5 @@
 import { Especialidad } from './../_model/especialidad';
-import { HOST, TOKEN_NAME } from './../_shared/var.constant';
+import { HOST, TOKEN_NAME, MICRO_CRUD } from './../_shared/var.constant';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class EspecialidadService {
 
+  //private url: string = `${HOST}/${MICRO_CRUD}/especialidad`;
   private url: string = `${HOST}/especialidad`;
 
   especialidadCambio = new Subject<Especialidad[]>();

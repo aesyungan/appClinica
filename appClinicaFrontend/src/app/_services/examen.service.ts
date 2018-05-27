@@ -1,5 +1,5 @@
 import { Examen } from './../_model/examen';
-import { HOST, TOKEN_NAME } from './../_shared/var.constant';
+import { HOST, TOKEN_NAME, MICRO_CRUD, MICRO_CR } from './../_shared/var.constant';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,7 +8,8 @@ import { ConsultaListaExamen } from '../_model/consultaListaExamen';
 @Injectable()
 export class ExamenService {
 
-  private url: string = HOST;
+
+  private url: string = `${HOST}`;
   examenCambio = new Subject<Examen[]>();
   mensaje = new Subject<string>();
 
@@ -23,7 +24,6 @@ export class ExamenService {
 
   getlistarExamenPorConsulta(idConsulta: number) {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    console.log(`${this.url}/consultaExamen/listar/${idConsulta}`);
     return this.http.get<ConsultaListaExamen[]>(`${this.url}/consultaExamen/listar/${idConsulta}`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
@@ -35,13 +35,6 @@ export class ExamenService {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }
-
-  /*registrar(consultaexamen: ConsultaExamen[]) {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.post(`${this.url}/consultaexamen/registrar`, consultaexamen, {
-      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-    });
-  }*/
 
   registrarExamen(examen: Examen) {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
