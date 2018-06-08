@@ -12,10 +12,10 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-	//clase para configurar o proteger recursos
+    
 	@Autowired
     private ResourceServerTokenServices tokenServices;
-	
+
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
 
@@ -23,7 +23,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(resourceIds).tokenServices(tokenServices);
     }
-    //configurar urls aqui ponemos los urls q vamos a proteger
     @Override
     public void configure(HttpSecurity http) throws Exception {
                 http
@@ -39,5 +38,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/paciente/**" ).authenticated()
                 .antMatchers("/usuario/**" ).authenticated();
     }    
-
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,8 @@ import com.ayungan.util.Mail;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private ILoginService service;
 
@@ -92,7 +94,7 @@ public class LoginController {
 		int rpta = 0;
 		try {
 			ResetToken rt = tokenService.findByToken(token);
-			rpta = service.cambiarClave(clave, rt.getUsuario().getUsername());
+			rpta = service.cambiarClave(passwordEncoder.encode(clave), rt.getUsuario().getUsername());
 			tokenService.eliminar(rt);
 		} catch (Exception e) {
 			return new ResponseEntity<Integer>(rpta, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -22,11 +22,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-//http://websystique.com/spring-security/spring-security-4-method-security-using-preauthorize-postauthorize-secured-el/
-//http://www.baeldung.com/spring-security-method-security
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	//configuracion para tokens
-	//valos de aplications.properties
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Value("${security.signing-key}")
 	private String signingKey;
 
@@ -35,10 +32,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Value("${security.security-realm}")
 	private String securityRealm;
-	
-	@Autowired	
+
+	@Autowired
 	private UserDetailsService userDetailsService;
-	//manejador de autentificacion
+	
+	/*@Autowired
+	private DataSource dataSource;*/
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		return bCryptPasswordEncoder;
+	}
+	
 	@Bean
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -46,10 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	@Autowired
-	public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService);//datos de la autentication
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(bcrypt);
+		/*auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(
+				"select * from (select nombre as username, clave as password, estado as enabled from usuario) as users where username = ?")
+				.authoritiesByUsernameQuery(
+						"select * from (select nombre as username, tipo as AUTHORITY from usuario) as authorities where username = ? ");*/
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http		
@@ -62,32 +75,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .csrf()
         .disable();        
 	}
-	//clase para q cree tonquens 
+	
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 		converter.setSigningKey(signingKey);		
 		return converter;
 	}
-	
+
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-	
+
 	@Bean
 	@Primary
 	public DefaultTokenServices tokenServices() {
 		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 		defaultTokenServices.setTokenStore(tokenStore());
 		defaultTokenServices.setSupportRefreshToken(true);	
-		defaultTokenServices.setReuseRefreshToken(false);	
+		defaultTokenServices.setReuseRefreshToken(false);
 		return defaultTokenServices;
-	}
-	@Bean
-	public static NoOpPasswordEncoder passwordEncoder() {
-	 return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
 	
 }
-

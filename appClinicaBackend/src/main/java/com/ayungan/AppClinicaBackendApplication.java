@@ -20,5 +20,20 @@ public class AppClinicaBackendApplication extends SpringBootServletInitializer {
 		// TODO Auto-generated method stub
 		return builder.sources(AppClinicaBackendApplication.class);
 	}
-
+/*
+	@Autowired
+	private OAuth2ClientContext context;
+	
+	@GetMapping("/access_token")
+	public String getToken() {
+		String token = context.getAccessToken().getValue();
+		System.out.println("Token: " + token);
+		return token;
+	}
+	
+	@GetMapping("/user")
+	public Principal getUser(Principal user) {
+		return user;
+	}
+*/
 }
